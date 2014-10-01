@@ -230,7 +230,12 @@ def copy_paths(config, paths):
     error(err)
 
 def create_cmake_script(config, manifest_list):
-  cmake_script='#!/bin/bash\n'
+  if os.name == 'nt'
+    cmake_script = ''
+    line_separator = '^\n'
+  else
+    cmake_script = '#!/bin/bash\n'
+    line_separator = '\\\n'
   cs_modules = set()
   python_modules = set()
 
@@ -247,14 +252,14 @@ def create_cmake_script(config, manifest_list):
           python_modules.add(module['name'])
 
   # ClientServer wrap
-  cmake_script += 'cmake \\\n'
-  cmake_script += '  --no-warn-unused-cli\\\n'
-  cmake_script += '  -DPARAVIEW_CS_MODULES:STRING="%s" \\\n' % (';'.join(cs_modules))
+  cmake_script += 'cmake ' + line_separator
+  cmake_script += '  --no-warn-unused-cli' + line_separator
+  cmake_script += '  -DPARAVIEW_CS_MODULES:STRING="%s" ' % (';'.join(cs_modules)) + line_separator
   # Python modules
-  cmake_script+='  -DVTK_WRAP_PYTHON_MODULES:STRING="%s" \\\n' % (';'.join(python_modules))
+  cmake_script+='  -DVTK_WRAP_PYTHON_MODULES:STRING="%s" ' % (';'.join(python_modules)) + line_separator
 
   for key, value in cmake_cache(config, manifest_list).items():
-    cmake_script += '  -D%s=%s \\\n' % (key, value)
+    cmake_script += '  -D%s=%s ' % (key, value) + line_separator
 
   # add ParaView git describe so the build has the correct version
   try:
@@ -262,11 +267,14 @@ def create_cmake_script(config, manifest_list):
   except subprocess.CalledProcessError as err:
     error(err)
 
-  cmake_script+='  -DPARAVIEW_GIT_DESCRIBE="%s" \\\n' % version.strip()
+  cmake_script+='  -DPARAVIEW_GIT_DESCRIBE="%s" ' % version.strip() + line_separator
 
-  cmake_script += ' "$@"\n'
-
-  file = os.path.join(config.output_dir, 'cmake.sh')
+  if os.name == 'nt'
+    cmake_script += '%1\n'
+    file = os.path.join(config.output_dir, 'cmake.bat')
+  else
+    cmake_script += ' "$@"\n'
+    file = os.path.join(config.output_dir, 'cmake.sh')
 
   try:
     with open(file, 'w') as fd:
