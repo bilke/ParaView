@@ -175,28 +175,7 @@
       "cswrap": true,
       "pythonwrap": true
     },
-    { "name": "vtkIOXML",
-      "path": "VTK/IO/XML",
-      "include": [
-        { "path": "vtkXMLOffsetsManager.h" },
-        { "class": "vtkXMLCompositeDataWriter" },
-        { "class": "vtkXMLImageDataWriter" },
-        { "class": "vtkXMLMultiBlockDataWriter" },
-        { "class": "vtkXMLPolyDataWriter" },
-        { "class": "vtkXMLRectilinearGridWriter" },
-        { "class": "vtkXMLStructuredDataWriter" },
-        { "class": "vtkXMLStructuredGridWriter" },
-        { "class": "vtkXMLUnstructuredDataWriter" },
-        { "class": "vtkXMLUnstructuredGridWriter" },
-        { "class": "vtkXMLWriter" }
-      ],
-      "replace": [
-        { "path": "VTK/IO/XML/module.cmake" },
-        { "path": "VTK/IO/XML/CMakeLists.txt" }
-      ],
-      "cswrap": true,
-      "pythonwrap": true
-    },
+
     { "name": "vtkIOParallelXML",
       "path": "VTK/IO/ParallelXML",
       "include": [

@@ -1,5 +1,5 @@
 {
-  "edition": "IO",
+  "edition": "Base",
   "cmake":{
     "cache":[
       { "name":"CMAKE_BUILD_TYPE",
@@ -85,6 +85,16 @@
           { "path": "ClientServerCore-Core-CMake.patch" }
       ],
       "cswrap":true,
+      "pythonwrap":true
+    },
+    { "name":"vtkPVCatalyst",
+      "path":"CoProcessing/Catalyst",
+      "exclude": [
+        { "path":"Testing" }
+      ],
+      "replace":[
+        { "path":"CoProcessing/Catalyst/module.cmake" }
+      ],
       "pythonwrap":true
     },
     { "name":"vtkCommonCore",

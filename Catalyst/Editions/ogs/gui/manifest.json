@@ -1,0 +1,174 @@
+{
+  "edition": "DataExplorer",
+  "requires": [
+    "Base"
+  ],
+  "cmake":{
+    "cache":[
+      { "name":"Module_vtknetcdf",
+        "type":"BOOL",
+        "value":"ON"
+      },
+      { "name":"Module_vtkhdf5",
+        "type":"BOOL",
+        "value":"ON"
+      },
+      { "name":"Module_vtkGUISupportQt",
+        "type":"BOOL",
+        "value":"ON"
+      },
+      { "name":"Module_vtkRenderingAnnotation",
+        "type":"BOOL",
+        "value":"ON"
+      },
+      { "name":"Module_vtkFiltersTexture",
+        "type":"BOOL",
+        "value":"ON"
+      },
+      { "name":"Module_vtkFiltersModeling",
+        "type":"BOOL",
+        "value":"ON"
+      },
+      { "name":"Module_vtkFiltersSources",
+        "type":"BOOL",
+        "value":"ON"
+      },
+      { "name":"Module_vtkInteractionWidgets",
+        "type":"BOOL",
+        "value":"ON"
+      }
+    ]
+  },
+  "modules":[
+    { "name":"vtknetcdf",
+      "path":"VTK/ThirdParty/netcdf"
+    },
+    { "name":"vtkhdf5",
+      "path":"VTK/ThirdParty/hdf5"
+    },
+
+    { "name": "vtkFiltersCore",
+      "path": "VTK/Filters/Core",
+      "include": [
+        { "class": "vtkIdFilter" },
+        { "class": "vtkCleanPolyData" },
+        { "class": "vtkTriangleFilter" },
+        { "class": "vtkGlyph2D" }
+      ]
+    },
+    { "name": "vtkRenderingCore",
+      "path": "VTK/Rendering/Core",
+      "include": [
+        { "class": "vtkDataSetMapper" }
+      ]
+    },
+    { "name": "vtkImagingCore",
+      "path": "VTK/Imaging/Core",
+      "include": [
+        { "class": "vtkImageMapToColors" },
+        { "class": "vtkImageChangeInformation" }
+      ]
+    },
+    { "name": "vtkIOImage",
+      "path": "VTK/IO/Image",
+      "include": [
+        { "class": "vtkImageReader" },
+        { "class": "vtkJPEGReader" },
+        { "class": "vtkBMPReader" }
+      ]
+    },
+    { "name": "vtkIOExport",
+      "path": "VTK/IO/Export",
+      "include": [
+        { "class": "vtkOBJExporter" },
+        { "class": "vtkVRMLExporter" }
+      ]
+    },
+    { "name": "vtkFiltersGeometry",
+      "path": "VTK/Filters/Geometry",
+      "include": [
+        { "class": "vtkCompositeDataGeometryFilter" }
+      ]
+    },
+
+    { "name":"vtkGUISupportQt",
+      "path":"VTK/GUISupport/Qt"
+    },
+    { "name":"vtkRenderingAnnotation",
+      "path":"VTK/Rendering/Annotation",
+      "include":[
+        { "path":"module.cmake" },
+        { "class":"vtkAxesActor" },
+        { "class":"vtkCaptionActor2D" }
+      ],
+      "replace":[
+        { "path":"VTK/Rendering/Annotation/CMakeLists.txt" }
+      ],
+      "exclude": [
+        { "path": "Testing" }
+      ],
+      "cswrap":true,
+      "pythonwrap":true
+    },
+    { "name":"vtkFiltersTexture",
+      "path":"VTK/Filters/Texture",
+      "include":[
+        { "path":"module.cmake" },
+        { "class":"vtkTextureMapToPlane" }
+      ],
+      "replace":[
+        { "path":"VTK/Filters/Texture/CMakeLists.txt" }
+      ],
+      "exclude": [
+        { "path": "Testing" }
+      ],
+      "cswrap":true,
+      "pythonwrap":true
+    },
+    { "name":"vtkFiltersModeling",
+      "path":"VTK/Filters/Modeling",
+      "include":[
+        { "path":"module.cmake" },
+        { "class":"vtkOutlineFilter" }
+      ],
+      "replace":[
+        { "path":"VTK/Filters/Modeling/CMakeLists.txt" }
+      ],
+      "exclude": [
+        { "path": "Testing" }
+      ],
+      "cswrap":true,
+      "pythonwrap":true
+    },
+    { "name":"vtkFiltersSources",
+      "path":"VTK/Filters/Sources",
+      "include":[
+        { "path":"module.cmake" },
+        { "class":"vtkPlaneSource" }
+      ],
+      "replace":[
+        { "path":"VTK/Filters/Sources/CMakeLists.txt" }
+      ],
+      "exclude": [
+        { "path": "Testing" }
+      ],
+      "cswrap":true,
+      "pythonwrap":true
+    },
+    { "name":"vtkInteractionWidgets",
+      "path":"VTK/Interaction/Widgets",
+      "include":[
+        { "class":"vtkOrientationMarkerWidget" }
+      ],
+      "replace":[
+        { "path":"VTK/Interaction/Widgets/CMakeLists.txt" },
+        { "path":"VTK/Interaction/Widgets/module.cmake" }
+      ],
+      "exclude": [
+        { "path": "Testing" }
+      ],
+      "cswrap":true,
+      "pythonwrap":true
+    }
+  ]
+}
