@@ -229,13 +229,14 @@ def copy_paths(config, paths):
   except (IOError, os.error) as err:
     error(err)
 
-def create_cmake_script(config, manifest_list):
-  if os.name == 'nt'
+def create_cmake_script(config, manifest_list, os_name):
+  if os_name == 'nt':
     cmake_script = ''
     line_separator = '^\n'
-  else
+  else:
     cmake_script = '#!/bin/bash\n'
     line_separator = '\\\n'
+
   cs_modules = set()
   python_modules = set()
 
@@ -269,10 +270,10 @@ def create_cmake_script(config, manifest_list):
 
   cmake_script+='  -DPARAVIEW_GIT_DESCRIBE="%s" ' % version.strip() + line_separator
 
-  if os.name == 'nt'
-    cmake_script += '%1\n'
+  if os_name == 'nt':
+    cmake_script += '%1 %2 %3 %4 %5 %6 %7 %8 %9\n'
     file = os.path.join(config.output_dir, 'cmake.bat')
-  else
+  else:
     cmake_script += ' "$@"\n'
     file = os.path.join(config.output_dir, 'cmake.sh')
 
@@ -352,7 +353,8 @@ def process(config):
       with open(output_path, 'w+') as fout:
         filter_proxies(fin, fout, set(proxies), all_proxies)
 
-  create_cmake_script(config, all_manifests)
+  create_cmake_script(config, all_manifests, 'nt')
+  create_cmake_script(config, all_manifests, 'posix')
 
 def main():
   parser = _get_argument_parser()
